@@ -1,5 +1,11 @@
 <template lang="html">
   <div class="search-container" id="top">
+
+    <!-- div to display map -->
+    <div class="" id="map">
+
+    </div>
+
     <h1 v-if="!submitted" class="font-weight-light">{{ title }}</h1>
     <h1 v-if="submitted" class="font-weight-light">Here are your breweries!</h1>
     <p v-if="!submitted" class="intro lead text-uppercase" >Enter a brewery name, city or keyword to find your brewery:</p>
@@ -64,6 +70,14 @@ export default {
   },
 
   methods: {
+    // function to initiate a new map
+    initMap: function() {
+      let uluru = {lat: -25.344, lng: 131.036};
+      let map = new google.maps.Map(
+        document.getElementById('map'), {zoom: 4, center: uluru})
+      let marker = new google.maps.Marker({position: uluru, map: map})
+    },
+
     findBrewery: function() {
       this.submitted = true;
       axios
@@ -76,16 +90,29 @@ export default {
         .finally(() => this.loading = false)
     },
     toTop: function() {
-      // document.body.scrollTop = 0;
-      // document.documentElement.scrollTop = 0;
       const element = document.getElementById('top');
       element.scrollIntoView({ behavior: 'smooth' });
     }
-  }
+  },
+
+  // mounted () {
+  //   axios
+  //     .get("https://maps.googleapis.com/maps/api/js?key=AIzaSyAFYxPQY0aCfiEc_MP3EJlDVI8HvbXQ3lI&callback=initMap")
+  //     .then(response => (this.maps = response.data))
+  //     .catch(error => {
+  //       console.log(error)
+  //       this.errored = true
+  //     })
+  //     .finally(() => this.loading = false)
+  // }
 }
 </script>
 
 <style lang="css" scoped>
+#map {
+  height: 400px;
+  width: 100%;
+}
 
 h1 {
   text-align: center;
