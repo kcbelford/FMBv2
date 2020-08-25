@@ -71,6 +71,8 @@ export default {
       ]
     }
   },
+  
+// comment for github test
 
   methods: {
     // function to initiate a new map
