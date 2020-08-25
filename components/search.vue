@@ -32,6 +32,9 @@
                <p class="lead brewery-p">{{ brewery.state }}</p>
              </div>
              <p class="lead brewery-p">{{ brewery.postal_code}}</p>
+             <div class="myMap">
+
+             </div>
            </div>
         </div>
         <!-- back to top button -->
@@ -71,12 +74,11 @@ export default {
 
   methods: {
     // function to initiate a new map
-    initMap: function() {
-      let uluru = {lat: -25.344, lng: 131.036};
-      let map = new google.maps.Map(
-        document.getElementById('map'), {zoom: 4, center: uluru})
-      let marker = new google.maps.Marker({position: uluru, map: map})
-    },
+    // initMap: function() {
+    //   let uluru = {lat: -25.344, lng: 131.036};
+    //   let map = new google.maps.Map(document.getElementById('map'), {zoom: 4, center: uluru})
+    //   let marker = new google.maps.Marker({position: uluru, map: map})
+    // },
 
     findBrewery: function() {
       this.submitted = true;
@@ -95,6 +97,27 @@ export default {
     }
   },
 
+  mounted () {
+    this.map = new google.maps.Map(document.getElementById('map'), {
+      center: {lat: 37.7834497667258, lng: -122.306283180899},
+      scrollwheel: false,
+      zoom:13
+    }),
+    this.map = new google.maps.Map(document.getElementsByClassName('myMap'), {
+      center: {lat: 61.180059, lng: -149.822075},
+      scrollwheel: false,
+      zoom: 4
+    })
+  },
+
+  // mounted () {
+  //     this.map = new google.maps.Map(document.getElementsByClassName('map'), {
+  //     center: {lat:61.180059, lng: -149.822075},
+  //     scrollwheel: false,
+  //     zoom: 4
+  //     })
+  // },
+
   // mounted () {
   //   axios
   //     .get("https://maps.googleapis.com/maps/api/js?key=AIzaSyAFYxPQY0aCfiEc_MP3EJlDVI8HvbXQ3lI&callback=initMap")
@@ -109,9 +132,14 @@ export default {
 </script>
 
 <style lang="css" scoped>
+.myMap {
+  height: 200px;
+  width: 200px;
+}
+
 #map {
   height: 400px;
-  width: 100%;
+  width: 400px;
 }
 
 h1 {
